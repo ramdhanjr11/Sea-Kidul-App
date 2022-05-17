@@ -42,9 +42,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap) {
         val pelabuhanRatu = LatLng(-6.988640004677339, 106.55066410614342)
         mMap = map
-        map.uiSettings.isCompassEnabled = true
         map.uiSettings.isMapToolbarEnabled = true
         map.uiSettings.isZoomControlsEnabled = true
+        map.setPadding(0, 0,0, 150)
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(pelabuhanRatu, 15f))
         showEvacuationsLocation()
     }

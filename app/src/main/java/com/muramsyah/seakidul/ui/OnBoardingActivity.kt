@@ -30,8 +30,8 @@ class OnBoardingActivity : AppIntro2() {
             description = "Kamu dapat melihat lokasi evakuasi yang aman disekitaran kamu!",
             imageDrawable = R.drawable.onboarding1,
             titleColorRes = R.color.white_200,
-            descriptionColorRes = R.color.green_200,
-            backgroundColorRes = R.color.green_400
+            descriptionColorRes = R.color.blue_200,
+            backgroundColorRes = R.color.blue_400
         ))
 
         // Slide 2
@@ -40,8 +40,8 @@ class OnBoardingActivity : AppIntro2() {
             description = "Dapatkan rute evakuasi terdekat saat terjadi bencana tsunami disekitaran kamu!",
             imageDrawable = R.drawable.onboarding2,
             titleColorRes = R.color.white_200,
-            descriptionColorRes = R.color.green_200,
-            backgroundColorRes = R.color.green_400
+            descriptionColorRes = R.color.blue_200,
+            backgroundColorRes = R.color.blue_400
         ))
 
         // Slide 3
@@ -50,8 +50,8 @@ class OnBoardingActivity : AppIntro2() {
             description = "Memberitahukan kamu ketika terjadi bencana Tsunami disekitar kamu!",
             imageDrawable = R.drawable.onboarding3,
             titleColorRes = R.color.white_200,
-            descriptionColorRes = R.color.green_200,
-            backgroundColorRes = R.color.green_400
+            descriptionColorRes = R.color.blue_200,
+            backgroundColorRes = R.color.blue_400
         ))
 
         setTransformer(AppIntroPageTransformerType.Fade)

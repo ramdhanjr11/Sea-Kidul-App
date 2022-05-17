@@ -17,8 +17,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="white_200">#EFF0F3</color>
-    <color name="green_200">#ABD1C6</color>
-    <color name="green_400">#004643</color>
+    <color name="blue_200">#BEF1FF</color>
+    <color name="blue_400">#0CA0C7</color>
+    <color name="blue_600">#1D83A0</color>
     <color name="yellow_200">#F9BC60</color>
     <color name="pink_200">#E16162</color>
 </resources>
