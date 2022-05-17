@@ -1,0 +1,15 @@
+<!--
+  ~ Copyright (c) 2022.
+  ~ Created By M Ramdhan Syahputra on 16-05-2022
+  ~ Github : https://github.com/ramdhanjr11
+  ~ LinkedIn : https://www.linkedin.com/in/ramdhanjr11
+  ~ Instagram : ramdhan.official
+  -->
+
+<resources>
+    <string name="app_name">Sea Kidul</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Beranda</string>
+    <string name="title_simulation">Simulasi</string>
+    <string name="title_setting">Pengaturan</string>
+</resources>

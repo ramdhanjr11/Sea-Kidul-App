@@ -1,0 +1,21 @@
+/*
+ * Copyright (c) 2022.
+ * Created By M Ramdhan Syahputra on 16-05-2022
+ * Github : https://github.com/ramdhanjr11
+ * LinkedIn : https://www.linkedin.com/in/ramdhanjr11
+ * Instagram : ramdhan.official
+ */
+
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    implementation 'org.json:json:20220320'
+}

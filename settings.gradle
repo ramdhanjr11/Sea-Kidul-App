@@ -1,0 +1,29 @@
+/*
+ * Copyright (c) 2022.
+ * Created By M Ramdhan Syahputra on 16-05-2022
+ * Github : https://github.com/ramdhanjr11
+ * LinkedIn : https://www.linkedin.com/in/ramdhanjr11
+ * Instagram : ramdhan.official
+ */
+
+import org.gradle.api.initialization.resolve.RepositoriesMode
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+rootProject.name = "Sea Kidul"
+include ':app'
+include ':DijkstraAlgorithm'

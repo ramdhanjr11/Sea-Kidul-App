@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2022.
+  ~ Created By M Ramdhan Syahputra on 16-05-2022
+  ~ Github : https://github.com/ramdhanjr11
+  ~ LinkedIn : https://www.linkedin.com/in/ramdhanjr11
+  ~ Instagram : ramdhan.official
+  -->
+
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+</resources>
