@@ -23,6 +23,8 @@ import com.muramsyah.seakidul.R
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
+    private lateinit var mMap: GoogleMap
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,10 +41,21 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         val pelabuhanRatu = LatLng(-6.988640004677339, 106.55066410614342)
+        mMap = map
         map.uiSettings.isCompassEnabled = true
         map.uiSettings.isMapToolbarEnabled = true
         map.uiSettings.isZoomControlsEnabled = true
-//        map.addMarker(MarkerOptions().position(pelabuhanRatu).title("Center Of Pelabuhan Ratu"))
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(pelabuhanRatu, 15f))
+        showEvacuationsLocation()
+    }
+
+    private fun showEvacuationsLocation() {
+        val evacuateLocation1 = LatLng(-6.983510693810596, 106.54458191201958)
+        val evacuateLocation2 = LatLng(-6.988733173226074, 106.5505967207707)
+        val evacuateLocation3 = LatLng(-6.9889613085610405, 106.55329223155792)
+
+        mMap.addMarker(MarkerOptions().position(evacuateLocation1).title("Lokasi Evakuasi 1"))
+        mMap.addMarker(MarkerOptions().position(evacuateLocation2).title("Lokasi Evakuasi 2"))
+        mMap.addMarker(MarkerOptions().position(evacuateLocation3).title("Lokasi Evakuasi 3"))
     }
 }
