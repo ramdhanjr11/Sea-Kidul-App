@@ -6,23 +6,34 @@
  * Instagram : ramdhan.official
  */
 
-package com.muramsyah.seakidul.ui
+package com.muramsyah.seakidul.ui.onboarding
 
 import android.Manifest
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
 import com.github.appintro.AppIntroPageTransformerType
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.muramsyah.seakidul.R
+import com.muramsyah.seakidul.ui.HomeActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OnBoardingActivity : AppIntro2() {
+
+    private val viewModel: OnBoardingViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel.getOnBoardingState().observe(this) {
+            if (it) {
+                navigateToHomeActivity()
+            }
+        }
 
         // Slide 1
         addSlide(AppIntroFragment.createInstance(
@@ -72,9 +83,8 @@ class OnBoardingActivity : AppIntro2() {
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-        val intent = Intent(this, HomeActivity::class.java)
-        finishAffinity()
-        startActivity(intent)
+        navigateToHomeActivity()
+        viewModel.savingOnBoardingState()
     }
 
     override fun onUserDeniedPermission(permissionName: String) {
@@ -85,6 +95,12 @@ class OnBoardingActivity : AppIntro2() {
     override fun onUserDisabledPermission(permissionName: String) {
         super.onUserDisabledPermission(permissionName)
         showNotice()
+    }
+
+    private fun navigateToHomeActivity() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun showNotice() {

@@ -81,6 +81,9 @@ dependencies {
     // App Intro library
     implementation "com.github.AppIntro:AppIntro:$app_intro_version"
 
+    // Data Store
+    implementation "androidx.datastore:datastore-preferences:$data_store_version"
+
     implementation project(':DijkstraAlgorithm')
 
 }

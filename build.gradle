@@ -31,4 +31,5 @@ ext {
     glide_version = "4.12.0"
     lottie_version = "4.2.0"
     app_intro_version = "6.2.0"
+    data_store_version = "1.0.0"
 }

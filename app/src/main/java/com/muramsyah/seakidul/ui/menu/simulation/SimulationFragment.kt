@@ -14,7 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.muramsyah.seakidul.databinding.FragmentSimulationBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SimulationFragment : Fragment() {
 
     private var _binding: FragmentSimulationBinding? = null
