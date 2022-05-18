@@ -10,6 +10,7 @@ package com.muramsyah.seakidul.ui.route
 
 import android.Manifest
 import android.content.IntentSender
+import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
@@ -25,7 +26,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import com.muramsyah.seakidul.R
 import com.muramsyah.seakidul.databinding.ActivityRouteEvacuateBinding
 import com.muramsyah.seakidul.utils.ActivityHelper
@@ -41,6 +44,8 @@ class RouteEvacuateActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
+    private var allLatLng = ArrayList<LatLng>()
+    private var boundsBuilder = LatLngBounds.Builder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +77,20 @@ class RouteEvacuateActivity : AppCompatActivity(), OnMapReadyCallback {
                 super.onLocationResult(result)
                 for (location in result.locations) {
                     Log.d(TAG, "onLocationResult: ${location.latitude}, ${location.longitude}")
+                    val lastLatLng = LatLng(location.latitude, location.longitude)
+
+                    //draw polyline
+                    allLatLng.add(lastLatLng)
+                    mMap.addPolyline(
+                        PolylineOptions()
+                            .color(Color.CYAN)
+                            .width(10f)
+                            .addAll(allLatLng)
+                    )
+
+                    boundsBuilder.include(lastLatLng)
+                    val bounds = boundsBuilder.build()
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 64))
                 }
             }
         }
