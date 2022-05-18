@@ -12,4 +12,5 @@
     <string name="title_home">Beranda</string>
     <string name="title_simulation">Simulasi</string>
     <string name="title_setting">Pengaturan</string>
+    <string name="title_activity_route_evacuate">RouteEvacuateActivity</string>
 </resources>
