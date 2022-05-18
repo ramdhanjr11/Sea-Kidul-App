@@ -84,6 +84,10 @@ dependencies {
     // Data Store
     implementation "androidx.datastore:datastore-preferences:$data_store_version"
 
+    // Google Maps Services
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
+
     implementation project(':DijkstraAlgorithm')
 
 }

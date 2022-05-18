@@ -19,6 +19,7 @@ import com.github.appintro.AppIntroPageTransformerType
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.muramsyah.seakidul.R
 import com.muramsyah.seakidul.ui.HomeActivity
+import com.muramsyah.seakidul.utils.ActivityHelper.showNotice
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -89,27 +90,17 @@ class OnBoardingActivity : AppIntro2() {
 
     override fun onUserDeniedPermission(permissionName: String) {
         super.onUserDeniedPermission(permissionName)
-        showNotice()
+        showNotice(this)
     }
 
     override fun onUserDisabledPermission(permissionName: String) {
         super.onUserDisabledPermission(permissionName)
-        showNotice()
+        showNotice(this)
     }
 
     private fun navigateToHomeActivity() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         finish()
-    }
-
-    private fun showNotice() {
-        MaterialAlertDialogBuilder(this)
-            .setMessage("Untuk menjalankan aplikasi ini kmau perlu mengijinkan permission lokasi kamu!")
-            .setTitle("Pemberitahuan")
-            .setPositiveButton("Oke") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
     }
 }

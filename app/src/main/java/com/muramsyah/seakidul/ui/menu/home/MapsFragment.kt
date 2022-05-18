@@ -8,11 +8,18 @@
 
 package com.muramsyah.seakidul.ui.menu.home
 
+import android.Manifest
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -20,12 +27,15 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.muramsyah.seakidul.R
+import com.muramsyah.seakidul.utils.ActivityHelper.checkPermission
+import com.muramsyah.seakidul.utils.ActivityHelper.showNotice
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +49,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
 
     override fun onMapReady(map: GoogleMap) {
@@ -49,6 +60,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         map.setPadding(0, 0,0, 150)
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(pelabuhanRatu, 15f))
         showEvacuationsLocation()
+        getUserLocation()
     }
 
     private fun showEvacuationsLocation() {
@@ -59,5 +71,58 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mMap.addMarker(MarkerOptions().position(evacuateLocation1).title("Lokasi Evakuasi 1"))
         mMap.addMarker(MarkerOptions().position(evacuateLocation2).title("Lokasi Evakuasi 2"))
         mMap.addMarker(MarkerOptions().position(evacuateLocation3).title("Lokasi Evakuasi 3"))
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
+                getUserLocation()
+            }
+            permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
+                getUserLocation()
+            }
+            else -> {
+                context?.let { showNotice(it) }
+                requestPermissionForLocation()
+            }
+        }
+    }
+
+    private fun getUserLocation() {
+        if (
+            checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, activity as AppCompatActivity) &&
+            checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION, activity as AppCompatActivity)
+        ) {
+            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    showUserMarker(location)
+                } else {
+                    Toast.makeText(context, "Lokasi tidak ditemukan. Coba lagi!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        } else {
+            requestPermissionForLocation()
+        }
+    }
+
+    private fun requestPermissionForLocation() {
+        requestPermissionLauncher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
+    }
+
+    private fun showUserMarker(location: Location) {
+        val userLocation = LatLng(location.latitude, location.longitude)
+        mMap.addMarker(
+            MarkerOptions()
+                .position(userLocation)
+                .title("Lokasi kamu")
+        )
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15f))
     }
 }
