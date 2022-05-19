@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.muramsyah.seakidul.R
+import com.muramsyah.seakidul.ui.HomeActivity
 import com.muramsyah.seakidul.ui.danger.DangerActivity
 
 class MessagingService : FirebaseMessagingService() {
@@ -43,8 +44,9 @@ class MessagingService : FirebaseMessagingService() {
         val channelName = "Danger Channel"
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-        val intent = Intent(applicationContext, DangerActivity::class.java).apply { flags =
-            Intent.FLAG_ACTIVITY_CLEAR_TOP
+        val intent = Intent(this, HomeActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra(HomeActivity.directToDangerActivity, true)
         }
         val pendingIntent = PendingIntent.getActivity(applicationContext, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         val builder = NotificationCompat.Builder(applicationContext, channelId)

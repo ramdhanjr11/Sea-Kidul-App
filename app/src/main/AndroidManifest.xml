@@ -42,11 +42,11 @@
         <activity
             android:name=".ui.route.RouteEvacuateActivity"
             android:exported="false"
-            android:parentActivityName=".ui.HomeActivity"
             android:label="@string/title_activity_route_evacuate" />
         <activity
             android:name=".ui.HomeActivity"
             android:exported="false"
+            android:launchMode="singleTop"
             android:label="@string/title_activity_home" />
         <activity
             android:name=".ui.onboarding.OnBoardingActivity"

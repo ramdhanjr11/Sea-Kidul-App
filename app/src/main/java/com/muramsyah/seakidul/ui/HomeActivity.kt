@@ -8,6 +8,7 @@
 
 package com.muramsyah.seakidul.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -15,6 +16,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.muramsyah.seakidul.R
 import com.muramsyah.seakidul.databinding.ActivityHomeBinding
+import com.muramsyah.seakidul.ui.danger.DangerActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,5 +34,15 @@ class HomeActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_activity_home)
         navView.setupWithNavController(navController)
+
+        val incomingMessagingData = intent.getBooleanExtra(directToDangerActivity, false)
+        if (incomingMessagingData) {
+            val intent = Intent(this, DangerActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    companion object {
+        val directToDangerActivity = "danger_activity"
     }
 }
