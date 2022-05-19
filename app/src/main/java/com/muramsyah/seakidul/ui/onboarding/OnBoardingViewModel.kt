@@ -8,16 +8,22 @@
 
 package com.muramsyah.seakidul.ui.onboarding
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.muramsyah.seakidul.data.SeaKidulRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor(private val seaKidulRepository: SeaKidulRepository): ViewModel() {
+
+    private var _isDarkMode = MutableLiveData<Boolean>()
+    val isDarkMode: LiveData<Boolean> = _isDarkMode
+
+    init {
+        getUiThemes()
+    }
 
     fun savingOnBoardingState() {
         viewModelScope.launch {
@@ -27,4 +33,11 @@ class OnBoardingViewModel @Inject constructor(private val seaKidulRepository: Se
 
     fun getOnBoardingState() = seaKidulRepository.getOnBoardingState().asLiveData()
 
+    private fun getUiThemes() {
+        viewModelScope.launch {
+            seaKidulRepository.getUiThemes().collect {
+                _isDarkMode.value = it
+            }
+        }
+    }
 }

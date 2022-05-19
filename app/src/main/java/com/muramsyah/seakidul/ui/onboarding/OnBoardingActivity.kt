@@ -20,6 +20,7 @@ import com.github.appintro.AppIntroPageTransformerType
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.muramsyah.seakidul.R
 import com.muramsyah.seakidul.ui.HomeActivity
+import com.muramsyah.seakidul.utils.ActivityHelper
 import com.muramsyah.seakidul.utils.ActivityHelper.showNotice
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,12 +31,7 @@ class OnBoardingActivity : AppIntro2() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewModel.getOnBoardingState().observe(this) {
-            if (it) {
-                navigateToHomeActivity()
-            }
-        }
+        initViewModel()
 
         // Slide 1
         addSlide(AppIntroFragment.createInstance(
@@ -79,9 +75,14 @@ class OnBoardingActivity : AppIntro2() {
     }
 
     private fun initViewModel() {
-//        if (it) setLanguage("EN", resources)
-//        else setLanguage("ID", resources)
-//        Log.d("english", "initViewModel: $it")
+        viewModel.getOnBoardingState().observe(this) {
+            if (it) {
+                navigateToHomeActivity()
+            }
+        }
+        viewModel.isDarkMode.observe(this) {
+            ActivityHelper.setUIMode(it)
+        }
     }
 
     override fun onSkipPressed(currentFragment: Fragment?) {
@@ -108,6 +109,6 @@ class OnBoardingActivity : AppIntro2() {
     private fun navigateToHomeActivity() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
-        finish()
+        finishAffinity()
     }
 }

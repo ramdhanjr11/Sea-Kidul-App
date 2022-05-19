@@ -13,6 +13,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.muramsyah.seakidul.R
@@ -47,5 +48,10 @@ object ActivityHelper {
 
         val refreshIntent = Intent(context, OnBoardingActivity::class.java)
         context.startActivity(refreshIntent)
+    }
+
+    fun setUIMode(isDarkMode: Boolean) {
+        if (isDarkMode) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 }
