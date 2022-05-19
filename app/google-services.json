@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1057158720392",
+    "project_id": "sea-kidul-d308c",
+    "storage_bucket": "sea-kidul-d308c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057158720392:android:5b355bcd176243f40ce83d",
+        "android_client_info": {
+          "package_name": "com.muramsyah.seakidul"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057158720392-qi3i8h5mv3is3daqdh81sf07tj9jkhnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZx3hDXBKAUE8m8ppRkKyVSJGWwaeDtXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057158720392-qi3i8h5mv3is3daqdh81sf07tj9jkhnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

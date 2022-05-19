@@ -51,32 +51,4 @@ class DangerReceiver : BroadcastReceiver() {
         }
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
-
-    fun showNotification(context: Context) {
-        val channelId = "Channel Danger"
-        val channelName = "Danger Channel"
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-        val intent = Intent(context, DangerActivity::class.java).apply { flags = FLAG_ACTIVITY_CLEAR_TOP }
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-        val builder = NotificationCompat.Builder(context, channelId)
-            .setContentIntent(pendingIntent)
-            .setSmallIcon(R.drawable.ic_map)
-            .setContentTitle("Peringatan")
-            .setContentText("Bahaya sedang menimpa anda!")
-            .setColor(ContextCompat.getColor(context, android.R.color.transparent))
-            .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
-            .setSound(alarmSound)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
-            channel.enableVibration(true)
-            channel.vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
-            builder.setChannelId(channelId)
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        val notification = builder.build()
-        notificationManager.notify(1, notification)
-    }
 }
