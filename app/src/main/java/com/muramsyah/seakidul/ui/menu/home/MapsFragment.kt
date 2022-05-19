@@ -68,9 +68,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         val evacuateLocation2 = LatLng(-6.988733173226074, 106.5505967207707)
         val evacuateLocation3 = LatLng(-6.9889613085610405, 106.55329223155792)
 
-        mMap.addMarker(MarkerOptions().position(evacuateLocation1).title("Lokasi Evakuasi 1"))
-        mMap.addMarker(MarkerOptions().position(evacuateLocation2).title("Lokasi Evakuasi 2"))
-        mMap.addMarker(MarkerOptions().position(evacuateLocation3).title("Lokasi Evakuasi 3"))
+        mMap.addMarker(MarkerOptions().position(evacuateLocation1).title(getString(R.string.title_evacuate_location_1)))
+        mMap.addMarker(MarkerOptions().position(evacuateLocation2).title(getString(R.string.title_evacuate_location_2)))
+        mMap.addMarker(MarkerOptions().position(evacuateLocation3).title(getString(R.string.title_evacuate_location_3)))
     }
 
     private val requestPermissionLauncher = registerForActivityResult(
@@ -99,7 +99,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 if (location != null) {
                     showUserMarker(location)
                 } else {
-                    Toast.makeText(context, "Lokasi tidak ditemukan. Coba lagi!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.title_location_not_found), Toast.LENGTH_SHORT).show()
                 }
             }
         } else {
@@ -121,7 +121,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mMap.addMarker(
             MarkerOptions()
                 .position(userLocation)
-                .title("Lokasi kamu")
+                .title(getString(R.string.title_your_location))
         )
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15f))
     }

@@ -11,6 +11,7 @@ package com.muramsyah.seakidul.ui.onboarding
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.github.appintro.AppIntro2
@@ -38,8 +39,8 @@ class OnBoardingActivity : AppIntro2() {
 
         // Slide 1
         addSlide(AppIntroFragment.createInstance(
-            title = "Melihat Lokasi Evakuasi",
-            description = "Kamu dapat melihat lokasi evakuasi yang aman disekitaran kamu!",
+            title = getString(R.string.title_onboarding_1),
+            description = getString(R.string.title_description_onboarding_1),
             imageDrawable = R.drawable.onboarding1,
             titleColorRes = R.color.white_200,
             descriptionColorRes = R.color.blue_200,
@@ -48,8 +49,8 @@ class OnBoardingActivity : AppIntro2() {
 
         // Slide 2
         addSlide(AppIntroFragment.createInstance(
-            title = "Rute Evakuasi Terdekat!",
-            description = "Dapatkan rute evakuasi terdekat saat terjadi bencana tsunami disekitaran kamu!",
+            title = getString(R.string.title_onboarding_2),
+            description = getString(R.string.title_description_onboarding_2),
             imageDrawable = R.drawable.onboarding2,
             titleColorRes = R.color.white_200,
             descriptionColorRes = R.color.blue_200,
@@ -58,8 +59,8 @@ class OnBoardingActivity : AppIntro2() {
 
         // Slide 3
         addSlide(AppIntroFragment.createInstance(
-            title = "Alarm Warning System!",
-            description = "Memberitahukan kamu ketika terjadi bencana Tsunami disekitar kamu!",
+            title = getString(R.string.title_onboarding_3),
+            description = getString(R.string.title_description_onboarding_3),
             imageDrawable = R.drawable.onboarding3,
             titleColorRes = R.color.white_200,
             descriptionColorRes = R.color.blue_200,
@@ -75,6 +76,12 @@ class OnBoardingActivity : AppIntro2() {
             ),
             slideNumber = 2,
             required = true)
+    }
+
+    private fun initViewModel() {
+//        if (it) setLanguage("EN", resources)
+//        else setLanguage("ID", resources)
+//        Log.d("english", "initViewModel: $it")
     }
 
     override fun onSkipPressed(currentFragment: Fragment?) {

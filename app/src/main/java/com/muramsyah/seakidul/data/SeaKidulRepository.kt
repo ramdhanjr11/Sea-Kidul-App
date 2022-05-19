@@ -26,6 +26,12 @@ class SeaKidulRepository @Inject constructor(private val dataStore: DataStore<Pr
         }
     }
 
+    override suspend fun saveLanguage(isEnglish: Boolean) {
+        dataStore.edit { preference ->
+            preference[PreferencesKey.LANGUAGE_KEY] = isEnglish
+        }
+    }
+
     override suspend fun saveOnboardingState(onBoarding: Boolean) {
         dataStore.edit { preference ->
             preference[PreferencesKey.ONBOARDING_KEY] = onBoarding
@@ -34,6 +40,10 @@ class SeaKidulRepository @Inject constructor(private val dataStore: DataStore<Pr
 
     override fun getUiThemes(): Flow<Boolean> = dataStore.data.map { preference ->
         preference[PreferencesKey.NIGHT_MODE_KEY] ?: false
+    }
+
+    override fun getLanguage(): Flow<Boolean> = dataStore.data.map { preference ->
+        preference[PreferencesKey.LANGUAGE_KEY] ?: false
     }
 
     override fun getOnBoardingState(): Flow<Boolean> = dataStore.data.map { preference ->

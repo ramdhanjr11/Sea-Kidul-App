@@ -12,7 +12,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface ISeaKidulRepository {
     suspend fun saveUiThemes(nightMode: Boolean)
+    suspend fun saveLanguage(isEnglish: Boolean)
     suspend fun saveOnboardingState(onBoarding: Boolean)
     fun getUiThemes(): Flow<Boolean>
+    fun getLanguage(): Flow<Boolean>
     fun getOnBoardingState(): Flow<Boolean>
 }

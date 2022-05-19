@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2022.
+  ~ Created By M Ramdhan Syahputra on 16-05-2022
+  ~ Github : https://github.com/ramdhanjr11
+  ~ LinkedIn : https://www.linkedin.com/in/ramdhanjr11
+  ~ Instagram : ramdhan.official
+  -->
+
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+
+    <color name="white_200">#858585</color>
+    <color name="blue_200">#DAF7FF</color>
+    <color name="blue_400">#2C2C2C</color>
+    <color name="blue_600">#171717</color>
+    <color name="yellow">#FFEE58</color>
+    <color name="red">#EF5350</color>
+</resources>

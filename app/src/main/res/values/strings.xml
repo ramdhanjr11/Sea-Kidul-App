@@ -13,4 +13,22 @@
     <string name="title_simulation">Simulasi</string>
     <string name="title_setting">Pengaturan</string>
     <string name="title_activity_route_evacuate">RouteEvacuateActivity</string>
+    <string name="title_onboarding_1">Melihat Lokasi Evakuasi</string>
+    <string name="title_description_onboarding_1">Kamu dapat melihat lokasi evakuasi yang aman disekitaran kamu!</string>
+    <string name="title_onboarding_2">Rute Evakuasi Terdekat!</string>
+    <string name="title_description_onboarding_2">Dapatkan rute evakuasi terdekat saat terjadi bencana tsunami disekitaran kamu!</string>
+    <string name="title_onboarding_3">Alarm Warning System!</string>
+    <string name="title_description_onboarding_3">Memberitahukan kamu ketika terjadi bencana Tsunami disekitar kamu!</string>
+    <string name="title_evacuate_location_1">Lokasi Evakuasi 1</string>
+    <string name="title_evacuate_location_2">Lokasi Evakuasi 2</string>
+    <string name="title_evacuate_location_3">Lokasi Evakuasi 3</string>
+    <string name="title_location_not_found">Lokasi tidak ditemukan. Coba lagi!</string>
+    <string name="title_your_location">Lokasi kamu</string>
+    <string name="title_wait_a_second">Tunggu sebentar!</string>
+    <string name="title_simulation_will_be_start">Simulasi akan dimulai..</string>
+    <string name="title_alarm_warning_system">Alarm Warning System</string>
+    <string name="title_go_to_evacuate_location">Ke lokasi Aman!</string>
+    <string name="title_dark_mode">Mode Gelap</string>
+    <string name="title_switch_language">Ubah ke Bahasa Inggris</string>
+    <string name="title_start_simulation">Mulai Simulasi</string>
 </resources>

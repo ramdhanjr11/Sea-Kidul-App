@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.muramsyah.seakidul.R
 import com.muramsyah.seakidul.databinding.FragmentSimulationBinding
 import com.muramsyah.seakidul.service.DangerReceiver
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,12 +39,12 @@ class SimulationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnStartSimulation.setOnClickListener {
             if (onTriggered) {
-                Toast.makeText(context, "Tunggu sebentar!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.title_wait_a_second), Toast.LENGTH_SHORT).show()
             } else {
                 onTriggered = true
                 val dangerReceiver = DangerReceiver()
                 dangerReceiver.triggeredPhone(requireContext())
-                Toast.makeText(context, "Simulasi akan dimulai..", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.title_simulation_will_be_start), Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -8,14 +8,59 @@
 
 package com.muramsyah.seakidul.ui.menu.setting
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.muramsyah.seakidul.data.SeaKidulRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SettingViewModel : ViewModel() {
+@HiltViewModel
+class SettingViewModel @Inject constructor(private val seaKidulRepository: SeaKidulRepository) :
+    ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+    private var _isDarkMode = MutableLiveData<Boolean>()
+    val isDarkMode: LiveData<Boolean> = _isDarkMode
+
+    private var _isEnglish = MutableLiveData<Boolean>()
+    val isEnglish: LiveData<Boolean> = _isEnglish
+
+    init {
+        getUiThemes()
+        getLanguage()
     }
-    val text: LiveData<String> = _text
+
+    private fun getUiThemes() {
+        viewModelScope.launch {
+            seaKidulRepository.getUiThemes().collect {
+                _isDarkMode.value = it
+            }
+        }
+    }
+
+    fun setDarkMode() {
+        val darkMode = !isDarkMode.value!!
+        _isDarkMode.value = darkMode
+
+        viewModelScope.launch {
+            seaKidulRepository.saveUiThemes(darkMode)
+        }
+    }
+
+    private fun getLanguage() {
+        viewModelScope.launch {
+            seaKidulRepository.getLanguage().collect {
+                _isEnglish.value = it
+            }
+        }
+    }
+
+    fun setEnglishLanguage() {
+        val english = !isEnglish.value!!
+        _isEnglish.value =  english
+
+        viewModelScope.launch {
+            seaKidulRepository.saveLanguage(english)
+        }
+    }
 }

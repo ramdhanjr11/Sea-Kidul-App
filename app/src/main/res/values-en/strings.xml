@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2022.
+  ~ Created By M Ramdhan Syahputra on 16-05-2022
+  ~ Github : https://github.com/ramdhanjr11
+  ~ LinkedIn : https://www.linkedin.com/in/ramdhanjr11
+  ~ Instagram : ramdhan.official
+  -->
+
+<resources>
+    <string name="app_name">Sea Kidul</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_simulation">Simulation</string>
+    <string name="title_setting">Setting</string>
+    <string name="title_activity_route_evacuate">RouteEvacuateActivity</string>
+    <string name="title_onboarding_1">See Evacuation Locations</string>
+    <string name="title_description_onboarding_1">You will be able to see evacuation locations surround you!</string>
+    <string name="title_onboarding_2">Nearest Evacuation Route!</string>
+    <string name="title_description_onboarding_2">Get The Nearest Evacuation Route while a tsunami happens to surround you!</string>
+    <string name="title_onboarding_3">Alarm Warning System!</string>
+    <string name="title_description_onboarding_3">Inform to you while a tsunami happens to surround you!</string>
+    <string name="title_evacuate_location_1">Evacuation Location 1</string>
+    <string name="title_evacuate_location_2">Evacuation Location 2</string>
+    <string name="title_evacuate_location_3">Evacuation Location 3</string>
+    <string name="title_location_not_found">Location not found. Try again!</string>
+    <string name="title_your_location">Your Location</string>
+    <string name="title_wait_a_second">Wait a second!</string>
+    <string name="title_simulation_will_be_start">Simulation will be start..</string>
+    <string name="title_alarm_warning_system">Alarm Warning System</string>
+    <string name="title_go_to_evacuate_location">Go to evacuation location!</string>
+    <string name="title_dark_mode">Dark Mode</string>
+    <string name="title_switch_language">Change to Bahasa</string>
+    <string name="title_start_simulation">Start Simulation</string>
+</resources>

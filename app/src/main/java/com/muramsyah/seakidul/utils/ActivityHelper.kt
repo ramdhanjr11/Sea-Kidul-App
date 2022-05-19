@@ -9,10 +9,16 @@
 package com.muramsyah.seakidul.utils
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.muramsyah.seakidul.R
+import com.muramsyah.seakidul.ui.HomeActivity
+import com.muramsyah.seakidul.ui.onboarding.OnBoardingActivity
+import java.util.*
 
 object ActivityHelper {
     fun showNotice(context: Context) {
@@ -30,5 +36,16 @@ object ActivityHelper {
             appCompatActivity,
             permission
         ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun setLanguage(languageCode: String, resources: Resources, context: Context) {
+        val locale = Locale(languageCode)
+        val dm = resources.displayMetrics
+        val conf = resources.configuration
+        conf.locale = locale
+        resources.updateConfiguration(conf, dm)
+
+        val refreshIntent = Intent(context, OnBoardingActivity::class.java)
+        context.startActivity(refreshIntent)
     }
 }

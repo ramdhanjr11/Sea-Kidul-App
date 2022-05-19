@@ -15,4 +15,5 @@ object PreferencesKey {
     const val PREFERENCE_APP_SEAKIDUL = "preferences_app"
     val ONBOARDING_KEY: Preferences.Key<Boolean> = booleanPreferencesKey("onboarding_key")
     val NIGHT_MODE_KEY: Preferences.Key<Boolean> = booleanPreferencesKey("night_mode_key")
+    val LANGUAGE_KEY: Preferences.Key<Boolean> = booleanPreferencesKey("language_key")
 }
