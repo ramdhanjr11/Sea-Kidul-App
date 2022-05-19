@@ -8,6 +8,7 @@
 
 package com.muramsyah.seakidul.ui.route
 
+import Node
 import android.Manifest
 import android.content.IntentSender
 import android.graphics.Color
@@ -32,7 +33,11 @@ import com.google.android.gms.maps.model.PolylineOptions
 import com.muramsyah.seakidul.R
 import com.muramsyah.seakidul.databinding.ActivityRouteEvacuateBinding
 import com.muramsyah.seakidul.utils.ActivityHelper
+import com.muramsyah.seakidul.utils.JsonHelper
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONObject
+import searchCloseDistance
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -45,6 +50,7 @@ class RouteEvacuateActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
     private var allLatLng = ArrayList<LatLng>()
+    private var allClosetsLatLng = ArrayList<LatLng>()
     private var boundsBuilder = LatLngBounds.Builder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,27 +86,23 @@ class RouteEvacuateActivity : AppCompatActivity(), OnMapReadyCallback {
                     val lastLatLng = LatLng(location.latitude, location.longitude)
 
                     //draw polyline
-                    allLatLng.add(lastLatLng)
-                    mMap.addPolyline(
-                        PolylineOptions()
-                            .color(Color.CYAN)
-                            .width(10f)
-                            .addAll(allLatLng)
-                    )
-
-                    boundsBuilder.include(lastLatLng)
-                    val bounds = boundsBuilder.build()
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 64))
+//                    allLatLng.add(lastLatLng)
+//                    mMap.addPolyline(
+//                        PolylineOptions()
+//                            .color(Color.CYAN)
+//                            .width(10f)
+//                            .addAll(allLatLng)
+//                    )
+//
+//                    boundsBuilder.include(lastLatLng)
+//                    val bounds = boundsBuilder.build()
+//                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 64))
                 }
             }
         }
     }
 
     private fun showEvacuationsLocation() {
-        val evacuateLocation1 = LatLng(-6.983510693810596, 106.54458191201958)
-        val evacuateLocation2 = LatLng(-6.988733173226074, 106.5505967207707)
-        val evacuateLocation3 = LatLng(-6.9889613085610405, 106.55329223155792)
-
         mMap.addMarker(MarkerOptions().position(evacuateLocation1).title("Lokasi Evakuasi 1"))
         mMap.addMarker(MarkerOptions().position(evacuateLocation2).title("Lokasi Evakuasi 2"))
         mMap.addMarker(MarkerOptions().position(evacuateLocation3).title("Lokasi Evakuasi 3"))
@@ -168,6 +170,7 @@ class RouteEvacuateActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun showUserMarker(location: Location) {
         val userLocation = LatLng(location.latitude, location.longitude)
+        findClosestRoute(location)
         mMap.addMarker(
             MarkerOptions()
                 .position(userLocation)
@@ -219,8 +222,67 @@ class RouteEvacuateActivity : AppCompatActivity(), OnMapReadyCallback {
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
 
+    private fun findClosestRoute(location: Location) {
+        val evacuateLocations = listOf(
+            Node(evacuateLocation1.latitude, evacuateLocation1.longitude),
+            Node(evacuateLocation2.latitude, evacuateLocation2.longitude),
+            Node(evacuateLocation3.latitude, evacuateLocation3.longitude)
+        )
+        val calculateClosestEvacuates = evacuateLocations.map {
+            searchCloseDistance(evacuateLocations, location.latitude, location.longitude)
+        }
+        val resultExtractCalculate = HashMap<Int, Double>()
+        calculateClosestEvacuates.forEach { it -> it.entries.forEach { resultExtractCalculate[it.key] = it.value } }
+        val filterClosestEvacuateLocation = resultExtractCalculate.toList().sortedBy { it.second }
+        val resultFilterEvacuateLocation = evacuateLocations[filterClosestEvacuateLocation[0].first]
+
+        val objectPlara = JSONObject(JsonHelper(this).parsingFileToString("plara.json").toString())
+        val userLocation = Node(lat = location.latitude, long = location.longitude)
+        val dijkstraAlgorithm = DijkstraAlgorithm.Builder(objectPlara)
+            .setStartOrigin("v1")
+            .setEndDestination(
+                when (resultFilterEvacuateLocation) {
+                    nodeEvacuateLocation1 -> "v8"
+                    nodeEvacuateLocation2 -> "v21"
+                    nodeEvacuateLocation3 -> "v29"
+                    else -> "null"
+                }
+            )
+            .setUserNode(userLocation = userLocation)
+            .create()
+
+        dijkstraAlgorithm.routes.values.flatten().forEach {
+            allClosetsLatLng.add(
+                LatLng(it.lat, it.long)
+            )
+        }
+
+        //draw polyline
+        mMap.addPolyline(
+            PolylineOptions()
+                .color(Color.GREEN)
+                .width(10f)
+                .addAll(allClosetsLatLng)
+        )
+
+        boundsBuilder.include(LatLng(location.latitude, location.longitude))
+        val bounds = boundsBuilder.build()
+        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 64))
+        Log.d(TAG, "Shortest Path Result: ${dijkstraAlgorithm.shortestPath}")
+        Log.d(TAG, "Routes Result: ${dijkstraAlgorithm.routes}")
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         stopLocationUpdates()
+    }
+
+    companion object {
+        private val evacuateLocation1 = LatLng(-6.983510693810596, 106.54458191201958)
+        private val evacuateLocation2 = LatLng(-6.988733173226074, 106.5505967207707)
+        private val evacuateLocation3 = LatLng(-6.9889613085610405, 106.55329223155792)
+        private val nodeEvacuateLocation1 = Node(evacuateLocation1.latitude, evacuateLocation1.longitude)
+        private val nodeEvacuateLocation2 = Node(evacuateLocation2.latitude, evacuateLocation2.longitude)
+        private val nodeEvacuateLocation3 = Node(evacuateLocation3.latitude, evacuateLocation3.longitude)
     }
 }
