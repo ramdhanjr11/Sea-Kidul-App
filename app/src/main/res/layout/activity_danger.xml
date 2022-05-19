@@ -12,6 +12,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".ui.danger.DangerActivity">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -33,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="Alarm Warning System"
-        android:textColor="@color/blue_600"
+        android:textColor="@color/yellow"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/animation_view"
@@ -45,8 +46,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:background="@drawable/button_custom_shape"
+        android:backgroundTint="@color/yellow"
         android:padding="50dp"
+        android:textColor="@color/red"
         android:text="Ke lokasi Aman!"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

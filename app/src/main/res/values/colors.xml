@@ -18,4 +18,6 @@
     <color name="blue_200">#DAF7FF</color>
     <color name="blue_400">#0CA0C7</color>
     <color name="blue_600">#1D83A0</color>
+    <color name="yellow">#FFEE58</color>
+    <color name="red">#EF5350</color>
 </resources>
