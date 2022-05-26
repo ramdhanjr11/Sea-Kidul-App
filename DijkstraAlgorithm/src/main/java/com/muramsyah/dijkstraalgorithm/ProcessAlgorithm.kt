@@ -142,7 +142,7 @@ abstract class ProcessAlgorithm(mFile: JSONObject, startFrom: String, endDestina
 
         // Membalikan keaadaan node (v1 - v2) -> (v2 - v1)
         val reverseNewNodes = newNodes.map { (key, value) ->
-            Pair(key.second, key.first) to value
+            Pair(key.second, key.first) to value.reversed()
         }
 
         // Menyatukan node yang telah dibalikan dengan yang belum

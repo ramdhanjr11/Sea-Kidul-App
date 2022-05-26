@@ -8,6 +8,7 @@
 
 package com.muramsyah.seakidul.ui.route
 
+import DijkstraAlgorithm
 import Node
 import android.Manifest
 import android.content.IntentSender
@@ -37,7 +38,6 @@ import com.muramsyah.seakidul.utils.JsonHelper
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
 import searchCloseDistance
-import java.io.File
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -251,25 +251,46 @@ class RouteEvacuateActivity : AppCompatActivity(), OnMapReadyCallback {
             .setUserNode(userLocation = userLocation)
             .create()
 
-        dijkstraAlgorithm.routes.values.flatten().forEach {
-            allClosetsLatLng.add(
-                LatLng(it.lat, it.long)
-            )
-        }
+        filteringNodesToShowToMap(dijkstraAlgorithm)
 
         //draw polyline
         mMap.addPolyline(
             PolylineOptions()
                 .color(Color.GREEN)
                 .width(10f)
-                .addAll(allClosetsLatLng)
+                .addAll(allClosetsLatLng.toSet())
         )
 
         boundsBuilder.include(LatLng(location.latitude, location.longitude))
         val bounds = boundsBuilder.build()
         mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 64))
+
         Log.d(TAG, "Shortest Path Result: ${dijkstraAlgorithm.shortestPath}")
         Log.d(TAG, "Routes Result: ${dijkstraAlgorithm.routes}")
+    }
+
+    private fun filteringNodesToShowToMap(dijkstraAlgorithm: DijkstraAlgorithm) {
+        val shortestPath= dijkstraAlgorithm.shortestPath
+        val mapNodes = ArrayList<Pair<String, String>>()
+        for (i in shortestPath.indices) {
+            if (i != shortestPath.size - 1) {
+                mapNodes.add(
+                    Pair(
+                        shortestPath[i],
+                        shortestPath[i+1]
+                    )
+                )
+            }
+        }
+
+        val routeResult = dijkstraAlgorithm.routes
+        mapNodes.forEach { value ->
+            routeResult.filterKeys { it == value }.values.flatten().forEach {
+                allClosetsLatLng.add(
+                    LatLng(it.lat, it.long)
+                )
+            }
+        }
     }
 
     override fun onDestroy() {
