@@ -1,2 +1,2 @@
 # Sea-Kidul-App
-This app suppose to completing my skripsi with (Dijkstra Algorithm Method)
+This app is attempt to completing Ramdhan's skripsi with (Dijkstra Algorithm Method)
